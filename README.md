@@ -2,6 +2,15 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+## Instalaciones (actualizable)
+
+Se han agregado las siguientes librerias:
+
+### `npm install @mui/material`
+### `npm install @emotion/react`
+### `npm install @emotion/styled`
+### `npm install react-router-dom`
+
 ## Available Scripts
 
 In the project directory, you can run:
