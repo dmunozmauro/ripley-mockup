@@ -32,8 +32,7 @@ class LoginApp extends React.Component {
 
     handleSubmit = (e) => {
         e.preventDefault();
-        console.log(this.state)
-        alert('usuario: ' + this.state.username +  ', password: ' + this.state.password)
+        this.props.history.push("/home");
     }
 
     isFormValid = () => {
