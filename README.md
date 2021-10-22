@@ -10,6 +10,8 @@ Se han agregado las siguientes librerias:
 ##### `npm install @emotion/react`
 ##### `npm install @emotion/styled`
 ##### `npm install react-router-dom`
+##### `npm install jwt-decode`
+##### `npm install --save @fullcalendar/react @fullcalendar/daygrid @fullcalendar/interaction`
 
 ## Available Scripts
 

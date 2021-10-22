@@ -1,6 +1,8 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useState } from "react";
 import InputComponent from "../tags/input";
 import ButtonComponent from "../tags/button";
+
+import { saveToken, saveUsername } from "../utils/session";
 
 import {
     LoginContainer,
@@ -12,109 +14,100 @@ import {
     LogoRipley
 } from './styles';
 
-class LoginApp extends React.Component {
-    constructor(props) {
-        super(props);
+const LoginApp = ({ history }) => {
 
-        this.state = {
-            username: "",
-            password: "",
-        }
+    const [user, setUser] = useState({
+        username: '',
+        password: ''
+    });
 
-        this.userName = React.createRef();
+    const { username, password } = user;
+
+    const handleChange = ({ target }) => {
+        setUser({
+            ...user,
+            [target.name]: target.value
+        });
     }
 
-    handleChange = (e) => {
-        this.setState({
-            [e.target.name]: e.target.value
-        })
-    }
-
-    handleSubmit = (e) => {
+    const handleSubmit = (e) => {
         e.preventDefault();
-        this.props.history.push("/home");
+        saveToken("token prueba");
+        saveUsername(username);
+
+        history.push("/home");
     }
 
-    isFormValid = () => {
-
+    const isFormValid = () => {
         if (
-            this.state.username !== undefined &&
-            this.state.username !== null &&
-            this.state.username !== "" &&
-            this.state.password !== undefined &&
-            this.state.password !== null &&
-            this.state.password !== ""
+            username !== undefined &&
+            username !== null &&
+            username !== "" &&
+            password !== undefined &&
+            password !== null &&
+            password !== ""
         ) {
             return true;
         }
         return false
     };
 
-    render() {
-        return (
-            <Fragment>
-                <form onSubmit={this.handleSubmit}>
-                    <LoginContainer>
-                        <LoginMain id="LoginMain">
+    return (
+        <Fragment>
+            <form onSubmit={handleSubmit}>
+                <LoginContainer>
+                    <LoginMain id="LoginMain">
+                        <LoginInfo id="LoginInfo">
+                            <LoginInfoContent id="LoginInfoContent">
+                                <LogoRipley src="/images/logo-ripley.png" alt="Logo Ripley" />
+                                <LoginTitleInfo>Bienvenido!</LoginTitleInfo>
+                            </LoginInfoContent>
+                        </LoginInfo>
+                        <LoginForm>
+                            <InputComponent
+                                id="outlined-basic-text"
+                                autoComplete='off'
+                                size="small"
+                                label="Usuario"
+                                variant="outlined"
+                                color="secondary"
+                                placeholder="Usuario"
+                                type="text"
+                                value={username}
+                                onChange={handleChange}
+                                name="username"
+                                sx={{ margin: '5px' }}
+                            />
 
-                            <LoginInfo id="LoginInfo">
-                                <LoginInfoContent id="LoginInfoContent">
-                                    <LogoRipley src="/images/logo-ripley.png" alt="Logo Ripley" />
-                                    <LoginTitleInfo>Bienvenido!</LoginTitleInfo>
-                                </LoginInfoContent>
+                            <InputComponent
+                                id="outlined-basic-password"
+                                autoComplete='off'
+                                size="small"
+                                label="Password"
+                                variant="outlined"
+                                color="secondary"
+                                placeholder="Password"
+                                type="password"
+                                value={password}
+                                onChange={handleChange}
+                                name="password"
+                                sx={{ margin: '5px' }}
+                            />
 
-                            </LoginInfo>
-
-                            <LoginForm>
-                                <InputComponent
-                                    id="outlined-basic-text"
-                                    autoComplete='off'
-                                    size="small"
-                                    label="Usuario"
-                                    variant="outlined"
-                                    color="secondary"
-                                    placeholder="Usuario"
-                                    type="text"
-                                    value={this.state.username}
-                                    onChange={this.handleChange}
-                                    name="username"
-                                    sx={{ margin: '5px' }}
-                                />
-
-                                <InputComponent
-                                    id="outlined-basic-password"
-                                    autoComplete='off'
-                                    size="small"
-                                    label="Password"
-                                    variant="outlined"
-                                    color="secondary"
-                                    placeholder="Password"
-                                    type="password"
-                                    value={this.state.password}
-                                    onChange={this.handleChange}
-                                    name="password"
-                                    sx={{ margin: '5px' }}
-                                />
-
-                                <ButtonComponent
-                                    disabled={!this.isFormValid()}
-                                    variant="contained"
-                                    color="secondary"
-                                    type="submit"
-                                    value="Ingresar"
-                                    sx={{ width: '50%', alignSelf: 'center', marginTop: '20px', marginBottom: '28px' }}>
-                                </ButtonComponent>
-
-                            </LoginForm>
-                        </LoginMain>
-                    </LoginContainer>
-
-                </form>
-            </Fragment>
-
-        );
-    }
+                            <ButtonComponent
+                                disabled={!isFormValid()}
+                                variant="contained"
+                                color="secondary"
+                                type="submit"
+                                value="Ingresar"
+                                sx={{ width: '50%', alignSelf: 'center', marginTop: '20px', marginBottom: '28px' }}>
+                            </ButtonComponent>
+                        </LoginForm>
+                    </LoginMain>
+                </LoginContainer>
+            </form>
+        </Fragment>
+    );
 }
-
 
 export default LoginApp;
