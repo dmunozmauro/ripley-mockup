@@ -13,7 +13,6 @@ class App extends React.Component {
     this.state = {
       currentProfileFunctionalities: []
     }
-    console.log('App: ', props);
   }
 
 

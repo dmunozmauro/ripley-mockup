@@ -1,3 +1,4 @@
+import HomeComponent from "../components/home";
 import DashboardComponent from "../components/dashboard";
 import LoginApp from "../components/login";
 
@@ -10,7 +11,7 @@ const routes = [
     {
         exact: true,
         path: '/home',
-        component: DashboardComponent,
+        component: HomeComponent,
         routes: [
             {
                 exact: true,
