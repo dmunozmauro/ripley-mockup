@@ -2,6 +2,8 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { Button } from '@mui/material';
 
+import './style.css';
+
 import { validateSession, getUsername, clearSession } from '../utils/session';
 
 import {
@@ -69,19 +71,19 @@ class NavegationComponent extends React.Component {
                             }}>
                                 Reportes
                                 <div id="menuItem" hidden={this.state.hiddenMenu}>
-                                    <Link to={{ pathname: "/home/reports" }} style={{ textDecoration: "none" }}>
+                                    <Link to={{ pathname: "/home/reports/accounting" }} style={{ textDecoration: "none" }}>
                                         <NavegationListSubMenuItem>
-                                            Reportes tipo 1
+                                            Reportes de asientos contables
                                         </NavegationListSubMenuItem>
                                     </Link>
-                                    <Link to={{ pathname: "/home/reports" }} style={{ textDecoration: "none" }}>
+                                    <Link to={{ pathname: "/home/reports/logs" }} style={{ textDecoration: "none" }}>
                                         <NavegationListSubMenuItem>
-                                            Reportes tipo 2
+                                            Reportes de Logs de carga
                                         </NavegationListSubMenuItem>
                                     </Link>
-                                    <Link to={{ pathname: "/home/reports" }} style={{ textDecoration: "none" }}>
+                                    <Link to={{ pathname: "/home/reports/quadrature" }} style={{ textDecoration: "none" }}>
                                         <NavegationListSubMenuItem>
-                                            Reportes tipo 3
+                                            Reportes de Cuadraturas
                                         </NavegationListSubMenuItem>
                                     </Link>
                                 </div>
@@ -96,6 +98,7 @@ class NavegationComponent extends React.Component {
                         variant="contained"
                         color="secondary"
                         onClick={this.logout}
+                        className="colorButton"
                     >
                         Cerrar sesión
                     </Button>

@@ -1,7 +1,9 @@
 import LoginApp from "../components/login";
 import HomeComponent from "../components/home";
 import DashboardComponent from "../components/dashboard";
-import ReportsComponent from "../components/reports";
+import ReportsAccountingComponent from "../components/reports/reports_accounting";
+import ReportsLogsComponent from "../components/reports/reports_logs";
+import ReportsQuadratureComponent from "../components/reports/reports_quadrature";
 import AccountEntriesComponent from "../components/accountEntries";
 
 const routes = [
@@ -23,9 +25,21 @@ const routes = [
             },
             {
                 exact: true,
-                path: '/home/reports',
+                path: '/home/reports/accounting',
                 strict: true,
-                component: ReportsComponent
+                component: ReportsAccountingComponent
+            },
+            {
+                exact: true,
+                path: '/home/reports/logs',
+                strict: true,
+                component: ReportsLogsComponent
+            },
+            {
+                exact: true,
+                path: '/home/reports/quadrature',
+                strict: true,
+                component: ReportsQuadratureComponent
             },
             {
                 exact: true,

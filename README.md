@@ -12,6 +12,7 @@ Se han agregado las siguientes librerias:
 ##### `npm install react-router-dom`
 ##### `npm install jwt-decode`
 ##### `npm install --save @fullcalendar/react @fullcalendar/daygrid @fullcalendar/interaction`
+##### `npm install react-table --save`
 
 ## Available Scripts
 
