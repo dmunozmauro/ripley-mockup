@@ -12,7 +12,7 @@ export const NavegationMenu = styled.section`
 export const NavegationMenuContainer = styled.div`
   border-left: 5px solid #6A148E;
   box-shadow: 0 0 10px 0 rgb(10 10 10 / 20%);
-  height: 650px;
+  //height: 650px;
   margin-right: 20px;
   padding: 0 15px 0 0;
   width: 215px;

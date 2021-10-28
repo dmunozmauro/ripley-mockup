@@ -39,7 +39,7 @@ class NavegationComponent extends React.Component {
 
     render() {
         return (
-            <NavegationMenuContainer id="NavegationMenuContainer">
+            <NavegationMenuContainer>
                 <NavegationMenu>
                     <UserContainer>
                         <IconUser src="images/login.svg" />
@@ -91,18 +91,19 @@ class NavegationComponent extends React.Component {
                         </div>
 
                     </NavegationList>
+                    <BlockButtonSignOff id="botonOFF">
+                        <Button
+                            variant="contained"
+                            color="secondary"
+                            onClick={this.logout}
+                            className="colorButton"
+                        >
+                            Cerrar sesión
+                        </Button>
+                    </BlockButtonSignOff>
                 </NavegationMenu>
 
-                <BlockButtonSignOff>
-                    <Button
-                        variant="contained"
-                        color="secondary"
-                        onClick={this.logout}
-                        className="colorButton"
-                    >
-                        Cerrar sesión
-                    </Button>
-                </BlockButtonSignOff>
+
 
             </NavegationMenuContainer>
         );

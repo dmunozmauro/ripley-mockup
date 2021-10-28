@@ -5,8 +5,10 @@ export const Container  = styled.div`
  display: flex;
  flex-direction: row;
  font-weight: normal;
+ height : 100%;
  margin: 0 auto;
  padding: 25px 15px;
+ position : absolute;
  width: 100%;
 
  @media (max-width: 720px) {
