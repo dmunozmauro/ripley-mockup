@@ -5,3 +5,120 @@
 .selectStyleDiego>span {
     color: #4A0E63;
 }
+
+.loading {
+    background: rgba(255, 255, 255, 0.9);
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 99999;
+    overflow: hidden;
+}
+
+.loading .loading-inner {
+    width: 110px;
+    height: 40px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin: -20px 0 0 -55px;
+}
+
+.loading .loading-inner span {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background: #bf0122;
+    opacity: 0.5;
+    -webkit-border-radius: 20px;
+    -moz-border-radis: 20px;
+    border-radius: 20px;
+    animation: Cuncuna 1s infinite ease-in-out;
+    -moz-animation: Cuncuna 1s infinite ease-in-out;
+    -webkit-animation: Cuncuna 1s infinite ease-in-out;
+}
+
+.loading .loading-inner span:nth-child(2) {
+    left: 30px;
+    background: #dbdcdd;
+    animation-delay: .2s;
+    -moz-animation-delay: .2s;
+    -webkit-animation-delay: .2s;
+}
+
+.loading .loading-inner span:nth-child(3) {
+    left: 60px;
+    background: #fcd32f;
+    animation-delay: .4s;
+    -webkit-animation-delay: .4s;
+    -moz-animation-delay: .4s;
+}
+
+.loading .loading-inner span:nth-child(4) {
+    left: 90px;
+    background: #782769;
+    animation-delay: .6s;
+    -webkit-animation-delay: .6s;
+    -moz-animation-delay: .6s;
+}
+
+@keyframes Cuncuna {
+    0% {
+        opacity: 0.3;
+        transform: translateY(0px);
+        box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.1);
+    }
+    50% {
+        opacity: 1;
+        transform: translateY(-10px);
+        background: #6E357C;
+        box-shadow: 0px 20px 3px rgba(0, 0, 0, 0.05);
+    }
+    100% {
+        opacity: 0.3;
+        transform: translateY(0px);
+        box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.1);
+    }
+}
+
+@-moz-keyframes Cuncuna {
+    0% {
+        opacity: 0.3;
+        transform: translateY(0px);
+        box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.1);
+    }
+    50% {
+        opacity: 1;
+        transform: translateY(-10px);
+        background: #6E357C;
+        box-shadow: 0px 20px 3px rgba(0, 0, 0, 0.05);
+    }
+    100% {
+        opacity: 0.3;
+        transform: translateY(0px);
+        box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.1);
+    }
+}
+
+@-webkit-keyframes Cuncuna {
+    0% {
+        opacity: 0.3;
+        transform: translateY(0px);
+        box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.1);
+    }
+    50% {
+        opacity: 1;
+        transform: translateY(-10px);
+        background: #6E357C;
+        box-shadow: 0px 20px 3px rgba(0, 0, 0, 0.05);
+    }
+    100% {
+        opacity: 0.3;
+        transform: translateY(0px);
+        box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.1);
+    }
+}

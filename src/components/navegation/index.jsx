@@ -39,8 +39,8 @@ class NavegationComponent extends React.Component {
 
     render() {
         return (
-            <NavegationMenuContainer>
-                <NavegationMenu>
+            <NavegationMenuContainer id="NavegationMenuContainer">
+                <NavegationMenu id="NavegationMenu">
                     <UserContainer>
                         <IconUser src="images/login.svg" />
                         <ContainerDataUser>

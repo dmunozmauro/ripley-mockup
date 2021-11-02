@@ -7,9 +7,8 @@ import DatePicker from '@mui/lab/DatePicker';
 import es from 'date-fns/locale/es';
 import { format } from 'date-fns';
 
-import { EntriesBox, EntriesContainer } from './styles';
+import { EntriesBox, EntriesContainer, Cuncuna, IconLoading } from './styles';
 import './style.css';
-
 
 import InputDateComponent from "../tags/inputDate";
 import SelectComponent from "../tags/select";
@@ -23,6 +22,8 @@ class AccountEntriesComponent extends Component {
             dateValue: null,
             dateMockup: ["05/10/2021", "10/10/2021", "15/10/2021", "20/10/2021", "25/10/2021"],
             personName: '',
+
+            cuncuna: false,
 
             //SUCURSALES
             office: [
@@ -136,23 +137,23 @@ class AccountEntriesComponent extends Component {
     handleDateChange = (e) => {
 
         if (format(e, 'dd/MM/yyyy') === '05/10/2021') {
-            this.setState({ dateValue: e, office: [{ name: "Apoquindo", value: 1 }], disabledOffice: false });
+            this.setState({ dateValue: e, office: [{ name: "Apoquindo", value: 1 }], disabledSeat: false });
         }
 
         if (format(e, 'dd/MM/yyyy') === '10/10/2021') {
-            this.setState({ dateValue: e, office: [{ name: "Santiago", value: 2 }], disabledOffice: false });
+            this.setState({ dateValue: e, office: [{ name: "Santiago", value: 2 }], disabledSeat: false });
         }
 
         if (format(e, 'dd/MM/yyyy') === '15/10/2021') {
-            this.setState({ dateValue: e, office: [{ name: "Apoquindo", value: 1 }, { name: "Santiago", value: 2 }, { name: "Puente Alto", value: 3 }], disabledOffice: false });
+            this.setState({ dateValue: e, office: [{ name: "Apoquindo", value: 1 }, { name: "Santiago", value: 2 }, { name: "Puente Alto", value: 3 }], disabledSeat: false });
         }
 
         if (format(e, 'dd/MM/yyyy') === '20/10/2021') {
-            this.setState({ dateValue: e, office: [{ name: "Apoquindo", value: 1 }, { name: "Santiago", value: 2 }, { name: "Puente Alto", value: 3 }], disabledOffice: false });
+            this.setState({ dateValue: e, office: [{ name: "Apoquindo", value: 1 }, { name: "Santiago", value: 2 }, { name: "Puente Alto", value: 3 }], disabledSeat: false });
         }
 
         if (format(e, 'dd/MM/yyyy') === '25/10/2021') {
-            this.setState({ dateValue: e, office: [{ name: "Santiago", value: 2 }, { name: "Puente Alto", value: 3 }], disabledOffice: false });
+            this.setState({ dateValue: e, office: [{ name: "Santiago", value: 2 }, { name: "Puente Alto", value: 3 }], disabledSeat: false });
         }
     }
 
@@ -168,65 +169,89 @@ class AccountEntriesComponent extends Component {
     }
 
     handleChangeOffice = (e, { props }) => {
-        if (props.value === 1) {
-            this.setState({ officeSelected: props.value, disabledSeat: false, seat: [{ name: "Asiento primero", value: 1 }] });
-        }
 
-        if (props.value === 2) {
-            this.setState({ officeSelected: props.value, disabledSeat: false, seat: [{ name: "Segundo", value: 2 }] });
-        }
-
-        if (props.value === 3) {
-            this.setState({ officeSelected: props.value, disabledSeat: false, seat: [{ name: "Asiento primero", value: 1 }, { name: "3er Asiento", value: 3 }] });
-        }
-
+        this.setState({ officeSelected: props.value, reprocessDisabled: false });
 
     };
 
     handleChangeSeat = (e, { props }) => {
-        this.setState({ seatSelected: props.value, reprocessDisabled: false });
+
+        if (props.value === 1) {
+            this.setState({ seatSelected: props.value, disabledOffice: false, seat: [{ name: "Asiento primero", value: 1 }] });
+        }
+
+        if (props.value === 2) {
+            this.setState({ seatSelected: props.value, disabledOffice: false, seat: [{ name: "Segundo", value: 2 }] });
+        }
+
+        if (props.value === 3) {
+            this.setState({ seatSelected: props.value, disabledOffice: false, seat: [{ name: "Asiento primero", value: 1 }, { name: "3er Asiento", value: 3 }] });
+        }
+
+
+
     }
 
     handleSubmit = (e) => {
         e.preventDefault();
-        console.log(this.state)
+        this.setState({ cuncuna: true });
+
+        setInterval(() => {
+            this.setState({ cuncuna: false });
+            this.limpiarFormulario();
+        }, 10000);
     }
 
+    limpiarFormulario = () => {
+        this.setState({
+            dateValue: null,
+            officeSelected: "",
+            disabledOffice: true,
+            seatSelected: "",
+            disabledSeat: true,
+            reprocessDisabled: true,
+            valorFecha: null,
+            isDisabled: true,
+            sucursalSeleccionada: "",
+            asientoSeleccionado: "",
+            isDisabledSeat: true,
+        })
+    }
 
     cambioFecha = (e) => {
         if (format(e, 'dd/MM/yyyy') === '05/10/2021') {
-            this.setState({ valorFecha: e, sucursales: [{ label: "Apoquindo", value: 1 }], isDisabled: false });
+            this.setState({ valorFecha: e, sucursales: [{ label: "Apoquindo", value: 1 }], isDisabledSeat: false });
         }
 
         if (format(e, 'dd/MM/yyyy') === '10/10/2021') {
-            this.setState({ valorFecha: e, sucursales: [{ label: "Santiago", value: 2 }], isDisabled: false });
+            this.setState({ valorFecha: e, sucursales: [{ label: "Santiago", value: 2 }], isDisabledSeat: false });
         }
 
         if (format(e, 'dd/MM/yyyy') === '15/10/2021') {
-            this.setState({ valorFecha: e, sucursales: [{ label: "Apoquindo", value: 1 }, { label: "Santiago", value: 2 }, { label: "Puente Alto", value: 3 }], isDisabled: false });
+            this.setState({ valorFecha: e, sucursales: [{ label: "Apoquindo", value: 1 }, { label: "Santiago", value: 2 }, { label: "Puente Alto", value: 3 }], isDisabledSeat: false });
         }
 
         if (format(e, 'dd/MM/yyyy') === '20/10/2021') {
-            this.setState({ valorFecha: e, sucursales: [{ label: "Apoquindo", value: 1 }, { label: "Santiago", value: 2 }, { label: "Puente Alto", value: 3 }], isDisabled: false });
+            this.setState({ valorFecha: e, sucursales: [{ label: "Apoquindo", value: 1 }, { label: "Santiago", value: 2 }, { label: "Puente Alto", value: 3 }], isDisabledSeat: false });
         }
 
         if (format(e, 'dd/MM/yyyy') === '25/10/2021') {
-            this.setState({ valorFecha: e, sucursales: [{ label: "Santiago", value: 2 }, { label: "Puente Alto", value: 3 }], isDisabled: false });
+            this.setState({ valorFecha: e, sucursales: [{ label: "Santiago", value: 2 }, { label: "Puente Alto", value: 3 }], isDisabledSeat: false });
         }
 
     }
 
     cambioSucursal = (e) => {
         if (e.value === 1) {
-            this.setState({ sucursalSeleccionada: e, isDisabledSeat: false, asientos: [{ label: "Asiento primero", value: 1 }] });
+            this.setState({ sucursalSeleccionada: e, isDisabled: false, asientos: [{ label: "Asiento primero", value: 1 }] });
         }
 
         if (e.value === 2) {
-            this.setState({ sucursalSeleccionada: e, isDisabledSeat: false, asientos: [{ label: "Segundo", value: 2 }] });
+            this.setState({ sucursalSeleccionada: e, isDisabled: false, asientos: [{ label: "Segundo", value: 2 }] });
         }
 
         if (e.value === 3) {
-            this.setState({ sucursalSeleccionada: e, isDisabledSeat: false, asientos: [{ label: "Asiento primero", value: 1 }, { label: "3er Asiento", value: 3 }] });
+            this.setState({ sucursalSeleccionada: e, isDisabled: false, asientos: [{ label: "Asiento primero", value: 1 }, { label: "3er Asiento", value: 3 }] });
         }
     }
 
@@ -242,7 +267,7 @@ class AccountEntriesComponent extends Component {
 
                 <h1>Asientos a reprocesar</h1>
 
-                <form onSubmit={this.handleSubmit}>
+                {/* <form onSubmit={this.handleSubmit}>
                     <EntriesBox>
                         <EntriesContainer>
                             <InputDateComponent
@@ -283,11 +308,11 @@ class AccountEntriesComponent extends Component {
                             </Button>
                         </EntriesContainer>
                     </EntriesBox>
-                </form>
+                </form> */}
 
 
-                {/* <form onSubmit={this.handleSubmit}>
-                    <EntriesBox id="entrieFecha">
+                <form onSubmit={this.handleSubmit}>
+                    <EntriesBox id="EntriesBox">
                         <EntriesContainer>
                             <LocalizationProvider dateAdapter={AdapterDateFns} locale={es}>
                                 <DatePicker
@@ -299,23 +324,6 @@ class AccountEntriesComponent extends Component {
                                     value={this.state.dateValue}
                                 />
                             </LocalizationProvider>
-                        </EntriesContainer>
-
-                        <EntriesContainer>
-                            <FormControl fullWidth>
-                                <InputLabel color="secondary">Seleccionar sucursal</InputLabel>
-                                <Select
-                                    disabled={this.state.disabledOffice}
-                                    label="Seleccionar sucursal"
-                                    onChange={this.handleChangeOffice.bind(this)}
-                                    style={{ width: '100%' }}
-                                    value={this.state.officeSelected}
-                                >
-                                    {this.state.office.map((dt, idx) => {
-                                        return <MenuItem key={idx} value={dt.value} name={dt.name}>{dt.name}</MenuItem>
-                                    })}
-                                </Select>
-                            </FormControl>
                         </EntriesContainer>
 
                         <EntriesContainer>
@@ -336,6 +344,23 @@ class AccountEntriesComponent extends Component {
                             </FormControl>
                         </EntriesContainer>
 
+                        <EntriesContainer id="EntriesContainer">
+                            <FormControl fullWidth>
+                                <InputLabel color="secondary">Seleccionar sucursal</InputLabel>
+                                <Select
+                                    disabled={this.state.disabledOffice}
+                                    label="Seleccionar sucursal"
+                                    onChange={this.handleChangeOffice.bind(this)}
+                                    style={{ width: '100%' }}
+                                    value={this.state.officeSelected}
+                                >
+                                    {this.state.office.map((dt, idx) => {
+                                        return <MenuItem key={idx} value={dt.value} name={dt.name}>{dt.name}</MenuItem>
+                                    })}
+                                </Select>
+                            </FormControl>
+                        </EntriesContainer>
+
                     </EntriesBox>
 
                     <EntriesBox>
@@ -350,9 +375,17 @@ class AccountEntriesComponent extends Component {
                             </Button>
                         </EntriesContainer>
                     </EntriesBox>
-                </form> */}
+                </form>
 
-            </Fragment>
+                {(this.state.cuncuna) ?
+                    <Cuncuna className="loading">
+
+                        <h1>Procesando</h1>
+                        <IconLoading src="/images/cuncuna.gif" />
+                    </Cuncuna>
+                    : null
+                }
+            </Fragment >
         );
 
     }

@@ -24,8 +24,14 @@ class DashboardComponent extends Component {
 
     calendarRef = React.createRef();
 
-    handleDateClick = (arg) => {
+    handleDateClick = (arg, idx) => {
+        console.log(arg)
+        console.log('idx', idx)
 
+
+        if (this.state.events.title === 'Día con error') {
+
+        }
     }
 
     render() {
