@@ -13,6 +13,7 @@ Se han agregado las siguientes librerias:
 ##### `npm install jwt-decode`
 ##### `npm install --save @fullcalendar/react @fullcalendar/daygrid @fullcalendar/interaction`
 ##### `npm install react-table --save`
+##### `npm install moment --save`
 
 ## Available Scripts
 

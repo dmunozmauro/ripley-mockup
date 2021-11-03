@@ -108,30 +108,6 @@ class AccountEntriesComponent extends Component {
     }
 
     componentDidMount() {
-        this.getAlbums();
-    }
-
-    getAlbums() {
-        let endpoint = 'https://jsonplaceholder.typicode.com/albums/1/photos';
-        this.searchAlbums(endpoint);
-    }
-
-    searchAlbums = (endpoint) => {
-        const requestOptions = {
-            method: "GET",
-            headers: {
-                "Content-Type": "application/json",
-                Accept: "application/json"
-            }
-        };
-
-        fetch(endpoint, requestOptions)
-            .then((result) => {
-                return result.json();
-            })
-            .then((response) => {
-            })
-            .catch((error) => console.log('hubo un problema: ', error))
     }
 
     handleDateChange = (e) => {
