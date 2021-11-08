@@ -1,13 +1,15 @@
 import React, { Component, Fragment } from 'react';
-import {
-    DataGrid,
-    GridToolbarContainer,
-    GridToolbarFilterButton,
-    GridToolbarExport,
-    esES
-} from '@mui/x-data-grid';
 
+import { DataGrid, GridToolbarContainer, GridToolbarFilterButton, GridToolbarExport, esES } from '@mui/x-data-grid';
 import { randomPrice } from '@mui/x-data-grid-generator';
+import LocalizationProvider from '@mui/lab/LocalizationProvider';
+import AdapterDateFns from '@mui/lab/AdapterDateFns';
+import DatePicker from '@mui/lab/DatePicker';
+import { TextField, Button } from '@mui/material';
+
+import es from 'date-fns/locale/es';
+
+import { EntriesBox, EntriesContainer, Cuncuna, IconLoading } from '../styles';
 
 const currencyFormatter = new Intl.NumberFormat('es-CL', {
     style: 'currency',
@@ -100,13 +102,68 @@ const CustomNoRowsOverlay = () => {
     );
 }
 
+
+
 class ReportsAccountingComponent extends Component {
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            dateValue: null,
+            disabledButton: true,
+
+            cuncuna: false,
+            disabledReport: true,
+
+        }
+    }
+
+    handleDateChange = (e) => {
+        this.setState({ dateValue: e, disabledButton: (e === null) ? true : false });
+    }
+
+    handleSubmit = (e) => {
+        e.preventDefault();
+        this.setState({ cuncuna: true });
+
+        setInterval(() => {
+            this.setState({ cuncuna: false, disabledReport: false });
+        }, 10000);
+    }
+
     render() {
         return (
             <Fragment>
                 <h1>Reportes de Asientos Contables</h1>
 
-                <div style={{ height: 700, width: '100%' }}>
+                <form onSubmit={this.handleSubmit}>
+                    <EntriesBox>
+                        <EntriesContainer>
+                            <LocalizationProvider dateAdapter={AdapterDateFns} locale={es}>
+                                <DatePicker
+                                    color="secondary"
+                                    label="Seleccionar fecha"
+                                    onChange={this.handleDateChange}
+                                    renderInput={(params) => <TextField {...params} color="secondary" />}
+                                    value={this.state.dateValue}
+                                />
+                            </LocalizationProvider>
+                        </EntriesContainer>
+
+                        <EntriesContainer style={{ alignSelf: "center" }}>
+                            <Button
+                                color="secondary"
+                                disabled={this.state.disabledButton}
+                                type="submit"
+                                variant="contained"
+                            >
+                                Consultar
+                            </Button>
+                        </EntriesContainer>
+                    </EntriesBox>
+                </form>
+
+                <div style={{ height: 700, width: '100%' }} hidden={this.state.disabledReport}>
                     <DataGrid
                         rows={rows}
                         columns={columns}
@@ -119,6 +176,16 @@ class ReportsAccountingComponent extends Component {
                         }}
                     />
                 </div>
+
+
+                {(this.state.cuncuna) ?
+                    <Cuncuna className="loading">
+
+                        <h1>Cargando</h1>
+                        <IconLoading src="/images/cuncuna.gif" />
+                    </Cuncuna>
+                    : null
+                }
             </Fragment>
         );
     }

@@ -8,6 +8,14 @@ import {
 } from '@mui/x-data-grid';
 
 import { randomPrice } from '@mui/x-data-grid-generator';
+import LocalizationProvider from '@mui/lab/LocalizationProvider';
+import AdapterDateFns from '@mui/lab/AdapterDateFns';
+import DatePicker from '@mui/lab/DatePicker';
+import { TextField, Button, InputLabel, MenuItem, FormControl, Select } from '@mui/material';
+
+import es from 'date-fns/locale/es';
+
+import { EntriesBox, EntriesContainer, Cuncuna, IconLoading } from '../styles';
 
 const currencyFormatter = new Intl.NumberFormat('es-CL', {
     style: 'currency',
@@ -100,13 +108,117 @@ const CustomNoRowsOverlay = () => {
     );
 }
 
+const ITEM_HEIGHT = 48;
+const ITEM_PADDING_TOP = 8;
+const MenuProps = {
+    PaperProps: {
+        style: {
+            maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
+            width: 250,
+        },
+    },
+};
+
 class ReportsLogsComponent extends Component {
+
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            dateValue: null,
+            disabledButton: true,
+
+            cuncuna: false,
+            disabledReport: true,
+            disabledOffice: true,
+
+            office: [
+                {
+                    name: "Apoquindo",
+                    value: 1
+                },
+                {
+                    name: "Santiago",
+                    value: 2
+                },
+                {
+                    name: "Puente Alto",
+                    value: 3
+                }
+            ],
+            officeSelected: "",
+
+        }
+    }
+
+    handleDateChange = (e) => {
+        this.setState({ dateValue: e, disabledOffice: false });
+    }
+
+    handleChangeOffice = (e, { props }) => {
+        this.setState({ officeSelected: props.value, disabledButton: (e === null) ? true : false });
+    };
+
+    handleSubmit = (e) => {
+        e.preventDefault();
+        this.setState({ cuncuna: true });
+
+        setInterval(() => {
+            this.setState({ cuncuna: false, disabledReport: false });
+        }, 10000);
+    }
+
     render() {
         return (
             <Fragment>
                 <h1>Reportes de Logs de carga</h1>
 
-                <div style={{ height: 700, width: '100%' }}>
+                <form onSubmit={this.handleSubmit}>
+                    <EntriesBox>
+                        <EntriesContainer>
+                            <LocalizationProvider dateAdapter={AdapterDateFns} locale={es}>
+                                <DatePicker
+                                    color="secondary"
+                                    label="Seleccionar fecha"
+                                    onChange={this.handleDateChange}
+                                    renderInput={(params) => <TextField {...params} color="secondary" />}
+                                    value={this.state.dateValue}
+                                />
+                            </LocalizationProvider>
+                        </EntriesContainer>
+
+                        <EntriesContainer>
+                            <FormControl fullWidth>
+                                <InputLabel color="secondary">Seleccionar sucursal</InputLabel>
+                                <Select
+                                    label="Seleccionar sucursal"
+                                    disabled={this.state.disabledOffice}
+                                    onChange={this.handleChangeOffice.bind(this)}
+                                    style={{ width: '100%' }}
+                                    value={this.state.officeSelected}
+                                    MenuProps={MenuProps}
+                                >
+                                    {this.state.office.map((dt, idx) => {
+                                        return <MenuItem key={idx} value={dt.value} name={dt.name}>{dt.name}</MenuItem>
+                                    })}
+                                </Select>
+                            </FormControl>
+                        </EntriesContainer>
+
+                        <EntriesContainer style={{ alignSelf: "center" }}>
+                            <Button
+                                color="secondary"
+                                disabled={this.state.disabledButton}
+                                type="submit"
+                                variant="contained"
+                            >
+                                Consultar
+                            </Button>
+                        </EntriesContainer>
+                    </EntriesBox>
+                </form>
+
+                <div style={{ height: 700, width: '100%' }} hidden={this.state.disabledReport}>
                     <DataGrid
                         rows={rows}
                         columns={columns}
@@ -119,6 +231,15 @@ class ReportsLogsComponent extends Component {
                         }}
                     />
                 </div>
+
+                {(this.state.cuncuna) ?
+                    <Cuncuna className="loading">
+
+                        <h1>Cargando</h1>
+                        <IconLoading src="/images/cuncuna.gif" />
+                    </Cuncuna>
+                    : null
+                }
             </Fragment>
         );
     }
