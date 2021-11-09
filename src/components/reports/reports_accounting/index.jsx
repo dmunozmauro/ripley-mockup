@@ -156,6 +156,7 @@ class ReportsAccountingComponent extends Component {
                                 disabled={this.state.disabledButton}
                                 type="submit"
                                 variant="contained"
+                                style={{backgroundColor: (!this.state.disabledButton) ? "#9c27b0" : ""}}
                             >
                                 Consultar
                             </Button>

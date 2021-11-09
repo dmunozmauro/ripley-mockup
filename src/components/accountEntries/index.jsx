@@ -314,7 +314,7 @@ class AccountEntriesComponent extends Component {
                                     value={this.state.seatSelected}
                                 >
                                     {this.state.seat.map((dt, idx) => {
-                                        return <MenuItem key={idx} value={dt.value} name={dt.name}>{dt.name}</MenuItem>
+                                        return <MenuItem key={idx} value={dt.value} style={{ display: "flex", justifyContent: "left", padding: "5px" }}>{dt.name}</MenuItem>
                                     })}
                                 </Select>
                             </FormControl>
@@ -331,7 +331,7 @@ class AccountEntriesComponent extends Component {
                                     value={this.state.officeSelected}
                                 >
                                     {this.state.office.map((dt, idx) => {
-                                        return <MenuItem key={idx} value={dt.value} name={dt.name}>{dt.name}</MenuItem>
+                                        return <MenuItem key={idx} value={dt.value} style={{ display: "flex", justifyContent: "left", padding: "5px" }}>{dt.name}</MenuItem>
                                     })}
                                 </Select>
                             </FormControl>
@@ -346,6 +346,7 @@ class AccountEntriesComponent extends Component {
                                 disabled={this.state.reprocessDisabled}
                                 type="submit"
                                 variant="contained"
+                                style={{ backgroundColor: (!this.state.reprocessDisabled) ? "#9c27b0" : "" }}
                             >
                                 Reprocesar
                             </Button>

@@ -108,16 +108,6 @@ const CustomNoRowsOverlay = () => {
     );
 }
 
-const ITEM_HEIGHT = 48;
-const ITEM_PADDING_TOP = 8;
-const MenuProps = {
-    PaperProps: {
-        style: {
-            maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
-            width: 250,
-        },
-    },
-};
 
 class ReportsQuadratureComponent extends Component {
 
@@ -196,10 +186,9 @@ class ReportsQuadratureComponent extends Component {
                                     onChange={this.handleChangeOffice.bind(this)}
                                     style={{ width: '100%' }}
                                     value={this.state.officeSelected}
-                                    MenuProps={MenuProps}
                                 >
                                     {this.state.office.map((dt, idx) => {
-                                        return <MenuItem key={idx} value={dt.value} name={dt.name}>{dt.name}</MenuItem>
+                                        return <MenuItem key={idx} value={dt.value} style={{ display: "flex", justifyContent: "left", padding: "5px" }}>{dt.name}</MenuItem>
                                     })}
                                 </Select>
                             </FormControl>
@@ -211,6 +200,7 @@ class ReportsQuadratureComponent extends Component {
                                 disabled={this.state.disabledButton}
                                 type="submit"
                                 variant="contained"
+                                style={{ backgroundColor: (!this.state.disabledButton) ? "#9c27b0" : "" }}
                             >
                                 Consultar
                             </Button>
